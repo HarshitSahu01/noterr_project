@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LockPageActivity">
+    android:padding="20dp"
+    android:background="#121212"
+    android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Lock Icon -->
+    <ImageView
+        android:id="@+id/imageViewLock"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@android:drawable/ic_lock_lock"
+        android:tint="#BB86FC"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Lock Icon"/>
+
+    <!-- "Enter Password" Label -->
+    <TextView
+        android:id="@+id/textViewEnterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Password to Access Notes"
+        android:textSize="18sp"
+        android:textColor="#BB86FC"
+        android:layout_below="@id/imageViewLock"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Password"
+        android:textSize="18sp"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:hintTextColor="#BB86FC"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:layout_below="@id/textViewEnterPassword"
+        android:drawableStart="@android:drawable/ic_secure"
+        android:gravity="center"/>
+
+    <!-- "Forgot Password?" Text -->
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textSize="14sp"
+        android:textColor="#BB86FC"
+        android:layout_below="@id/editTextPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- Unlock Button -->
+    <Button
+        android:id="@+id/buttonUnlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unlock"
+        android:textSize="16sp"
+        android:backgroundTint="#BB86FC"
+        android:textColor="#121212"
+        android:layout_below="@id/textViewForgotPassword"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"/>
+
+
+</RelativeLayout>

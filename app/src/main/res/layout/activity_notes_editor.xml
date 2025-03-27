@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotesEditorActivity">
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- EditText for Note Title -->
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground"/>
+
+    <!-- EditText for Note Content -->
+    <EditText
+        android:id="@+id/editTextContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/editTextTitle"
+        android:layout_marginTop="8dp"
+        android:hint="Write your note here..."
+        android:textSize="16sp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:minLines="10"/>
+
+</RelativeLayout>

@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrivateNotesActivity">
+    android:background="#121212">  <!-- Updated Background Color -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Toolbar for Private Notes -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPrivate"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#BB86FC"
+        android:elevation="4dp"
+        android:textColor="#121212"
+        app:title="Private Notes"/>
+
+    <!-- RecyclerView for Private Notes List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPrivateNotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarPrivate"
+        android:layout_above="@id/fabPrivate"
+        android:padding="8dp"
+        android:background="#121212"/>
+
+    <!-- Floating Action Button to Add a New Private Note -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPrivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="#121212"
+        android:backgroundTint="#BB86FC"
+        android:elevation="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"/>
+
+</RelativeLayout>
