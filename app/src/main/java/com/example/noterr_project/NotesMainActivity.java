@@ -19,7 +19,7 @@ public class NotesMainActivity extends AppCompatActivity {
         // Initialize Floating Action Button
         fab = findViewById(R.id.fab);
 
-        // On Click, Open NotesEditorActivity
+        // Opens NotesEditorActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
