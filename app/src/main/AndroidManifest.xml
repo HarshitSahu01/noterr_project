@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Noterr_project"
         tools:targetApi="31">
         <activity
+            android:name=".ReminderEditorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReminderMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".PrivateNotesActivity"
             android:exported="false" />
         <activity

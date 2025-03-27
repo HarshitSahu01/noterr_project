@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
     android:background="#121212"
     android:gravity="center">
 
-    <!-- Lock Icon -->
     <ImageView
         android:id="@+id/imageViewLock"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@android:drawable/ic_lock_lock"
-        android:tint="#BB86FC"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:contentDescription="Lock Icon"/>
+        android:contentDescription="Lock Icon"
+        app:tint="#BB86FC" />
 
-    <!-- "Enter Password" Label -->
     <TextView
         android:id="@+id/textViewEnterPassword"
         android:layout_width="wrap_content"
@@ -30,7 +29,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"/>
 
-    <!-- Password Input -->
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
@@ -39,14 +37,13 @@
         android:textSize="18sp"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
-        android:hintTextColor="#BB86FC"
+        android:textColorHint="#BB86FC"
         android:background="@android:drawable/edit_text"
         android:padding="12dp"
         android:layout_below="@id/textViewEnterPassword"
         android:drawableStart="@android:drawable/ic_secure"
         android:gravity="center"/>
 
-    <!-- "Forgot Password?" Text -->
     <TextView
         android:id="@+id/textViewForgotPassword"
         android:layout_width="wrap_content"
@@ -60,7 +57,6 @@
         android:clickable="true"
         android:focusable="true"/>
 
-    <!-- Unlock Button -->
     <Button
         android:id="@+id/buttonUnlock"
         android:layout_width="match_parent"
