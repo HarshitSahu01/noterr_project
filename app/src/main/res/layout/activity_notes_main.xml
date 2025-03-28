@@ -1,35 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000"> <!-- Pure Black Background -->
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <!-- Header (Purple) -->
+    <TextView
+        android:id="@+id/headerText"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:title="My Notes:)"/>
+        android:layout_height="60dp"
+        android:background="#A855F7"
+    android:text="My Notes"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:textColor="#FFFFFF"/>
 
-    <!-- RecyclerView for Notes List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNotes"
+    <ImageButton
+        android:id="@+id/btnMoreOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_menu_more"
+        app:tint="#FFFFFF" />
+
+    <!-- Notes List -->
+    <ListView
+        android:id="@+id/notesListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/fab"
-        android:layout_margin="16dp"/>
+        android:layout_below="@id/headerText"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:background="#121212"
+        android:padding="8dp"/>
 
-    <!-- Floating Action Button to Add a New Note -->
+    <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_input_add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"/>
-
+        android:tint="#FFFFFF"
+        android:backgroundTint="#A855F7"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_margin="16dp"/>
 </RelativeLayout>

@@ -22,8 +22,8 @@
             android:name=".PrivateNotesActivity"
             android:exported="false" />
         <activity
-            android:name=".LockPageActivity"
-            android:exported="false" />
+            android:name=".LockPageActivity"/>
+<!--            android:exported="false" />-->
         <activity
             android:name=".NotesEditorActivity"
             android:exported="false" />
