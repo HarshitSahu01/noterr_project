@@ -16,8 +16,8 @@
             android:name=".ReminderEditorActivity"
             android:exported="false" />
         <activity
-            android:name=".ReminderMainActivity"
-            android:exported="false" />
+            android:name=".ReminderMainActivity"/>
+<!--            android:exported="false" />-->
         <activity
             android:name=".PrivateNotesActivity"
             android:exported="false" />

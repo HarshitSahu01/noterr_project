@@ -13,16 +13,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Find Button & Set Click Listener
+        // Open Notes Section
         Button buttonOpenNotes = findViewById(R.id.buttonOpenNotes);
         buttonOpenNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open NotesMainActivity
                 Intent intent = new Intent(MainActivity.this, NotesMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Open Reminder Section
+        Button buttonSetReminder = findViewById(R.id.buttonSetReminder);
+        buttonSetReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReminderMainActivity.class);
                 startActivity(intent);
             }
         });
     }
 }
-

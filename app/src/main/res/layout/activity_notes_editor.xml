@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#A855F7"
-    android:text="Edit Note"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:textColor="#FFFFFF"/>
+        android:text="Edit Note"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"/>
 
     <!-- Title Input Field -->
     <EditText
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/noteTitle"
-        android:hint="Start typing..."
+        android:hint="Type Nigga..."
         android:background="@android:color/transparent"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
