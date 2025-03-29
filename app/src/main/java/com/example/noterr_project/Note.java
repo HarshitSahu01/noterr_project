@@ -32,7 +32,6 @@ public class Note {
     }
 
     public static Note[] getNotes() {
-
         return notes;
     }
 
