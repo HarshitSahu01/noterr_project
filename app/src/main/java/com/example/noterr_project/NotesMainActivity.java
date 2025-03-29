@@ -2,10 +2,16 @@ package com.example.noterr_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NotesMainActivity extends AppCompatActivity {
@@ -15,6 +21,7 @@ public class NotesMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_main);
 
+        // Handle Floating Action Button click
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,21 +29,37 @@ public class NotesMainActivity extends AppCompatActivity {
                 startActivity(new Intent(NotesMainActivity.this, NotesEditorActivity.class));
             }
         });
+
+        // Handle More Options button click (for the dropdown menu)
+        ImageButton btnMoreOptions = findViewById(R.id.btnMoreOptions);
+        btnMoreOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);  // Show the dropdown menu when clicked
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_notes_main, menu);
-        return true;
-    }
+    // Method to show the PopupMenu
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_notes_main, popupMenu.getMenu());
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_private_notes) {
-            Intent intent = new Intent(this, LockPageActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        // Set a click listener for menu item clicks
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_private_notes) {
+                    Intent intent = new Intent(NotesMainActivity.this, LockPageActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        popupMenu.show();  // Display the popup menu
     }
 }
