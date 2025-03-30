@@ -10,11 +10,13 @@ public class DBInstance {
     private static SQLiteDatabase db;
 
     private DBInstance() {}
+
     public static void initialize(Context context) {
         if (db != null) return;
         String dbName = "noterr_db";
-        String dbPath = context.getFilesDir().getPath()+"/"+dbName;
+        String dbPath = context.getFilesDir().getPath() + "/" + dbName;
         db = openOrCreateDatabase(dbPath, null);
+
         // Create config table
         StringBuilder createConfigQuery = new StringBuilder();
         createConfigQuery.append("CREATE TABLE IF NOT EXISTS config(");
@@ -45,26 +47,26 @@ public class DBInstance {
         createNotesTriggerQuery.append("END;");
         db.execSQL(createNotesTriggerQuery.toString());
 
-        // Create remainder table
-        StringBuilder createRemaindersTableQuery = new StringBuilder();
-        createRemaindersTableQuery.append("CREATE TABLE IF NOT EXISTS remainder(");
-        createRemaindersTableQuery.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        createRemaindersTableQuery.append("title VARCHAR, ");
-        createRemaindersTableQuery.append("content VARCHAR, ");
-        createRemaindersTableQuery.append("created_on DATETIME DEFAULT CURRENT_TIMESTAMP, ");
-        createRemaindersTableQuery.append("modified_on DATETIME DEFAULT CURRENT_TIMESTAMP");
-        createRemaindersTableQuery.append(")");
-        db.execSQL(createRemaindersTableQuery.toString());
+        // Create reminders table (FIXED TABLE NAME)
+        StringBuilder createRemindersTableQuery = new StringBuilder();
+        createRemindersTableQuery.append("CREATE TABLE IF NOT EXISTS reminders(");
+        createRemindersTableQuery.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
+        createRemindersTableQuery.append("title VARCHAR, ");
+        createRemindersTableQuery.append("content VARCHAR, ");
+        createRemindersTableQuery.append("created_on DATETIME DEFAULT CURRENT_TIMESTAMP, ");
+        createRemindersTableQuery.append("modified_on DATETIME DEFAULT CURRENT_TIMESTAMP");
+        createRemindersTableQuery.append(")");
+        db.execSQL(createRemindersTableQuery.toString());
 
-        // Create trigger to update 'modified_on' for remainder table
-        StringBuilder createRemaindersTriggerQuery = new StringBuilder();
-        createRemaindersTriggerQuery.append("CREATE TRIGGER IF NOT EXISTS update_modified_on_remainder ");
-        createRemaindersTriggerQuery.append("AFTER UPDATE ON remainder ");
-        createRemaindersTriggerQuery.append("FOR EACH ROW ");
-        createRemaindersTriggerQuery.append("BEGIN ");
-        createRemaindersTriggerQuery.append("UPDATE remainder SET modified_on = CURRENT_TIMESTAMP WHERE id = OLD.id; ");
-        createRemaindersTriggerQuery.append("END;");
-        db.execSQL(createRemaindersTriggerQuery.toString());
+        // Create trigger to update 'modified_on' for reminders table (FIXED TABLE NAME)
+        StringBuilder createRemindersTriggerQuery = new StringBuilder();
+        createRemindersTriggerQuery.append("CREATE TRIGGER IF NOT EXISTS update_modified_on_reminders ");
+        createRemindersTriggerQuery.append("AFTER UPDATE ON reminders ");
+        createRemindersTriggerQuery.append("FOR EACH ROW ");
+        createRemindersTriggerQuery.append("BEGIN ");
+        createRemindersTriggerQuery.append("UPDATE reminders SET modified_on = CURRENT_TIMESTAMP WHERE id = OLD.id; ");
+        createRemindersTriggerQuery.append("END;");
+        db.execSQL(createRemindersTriggerQuery.toString());
     }
 
     static SQLiteDatabase getInstance() {

@@ -28,24 +28,33 @@
         android:src="@android:drawable/ic_menu_more"
         app:tint="#FFFFFF" />
 
-    <!-- Notes List -->
-    <ListView
-        android:id="@+id/notesListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/headerText"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:background="#121212"
-        android:padding="8dp"/>
-
+    <!-- Notes Count -->
     <TextView
         android:id="@+id/notescount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnMoreOptions"
+        android:layout_below="@id/headerText"
+        android:layout_margin="8dp"
+        android:text="0 Notes"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"/>
 
-        />
+    <!-- Notes Container (Replaces ListView) -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/notescount"
+        android:layout_above="@id/fab">
+
+        <LinearLayout
+            android:id="@+id/notesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"/>
+    </ScrollView>
+
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -54,7 +63,7 @@
         android:src="@android:drawable/ic_input_add"
         android:tint="#FFFFFF"
         android:backgroundTint="#A855F7"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_margin="16dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"/>
 </RelativeLayout>

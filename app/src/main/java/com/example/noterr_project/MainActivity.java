@@ -29,12 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Open Reminder Section
         Button buttonSetReminder = findViewById(R.id.buttonSetReminder);
-        buttonSetReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ReminderMainActivity.class);
-                startActivity(intent);
-            }
+        buttonSetReminder.setOnClickListener(v -> {
+            Log.d("MainActivity", "Opening ReminderMainActivity...");
+            Intent intent = new Intent(MainActivity.this, ReminderMainActivity.class);
+            startActivity(intent);
         });
     }
 }

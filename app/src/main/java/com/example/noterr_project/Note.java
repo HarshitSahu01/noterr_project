@@ -89,4 +89,15 @@ public class Note {
 
     public void save() {
     }
+
+    public static int getNoteId(String title) {
+        SQLiteDatabase db = DBInstance.getInstance();
+        try (Cursor c = db.rawQuery("SELECT id FROM NOTES WHERE title = ?", new String[]{title})) {
+            if (c.moveToFirst()) {
+                return c.getInt(0);
+            }
+        }
+        return -1; // Return -1 if not found
+    }
+
 }
