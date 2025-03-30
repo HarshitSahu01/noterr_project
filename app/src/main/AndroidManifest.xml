@@ -19,8 +19,8 @@
             android:name=".ReminderMainActivity"/>
 <!--            android:exported="false" />-->
         <activity
-            android:name=".PrivateNotesActivity"
-            android:exported="false" />
+            android:name=".PrivateNotesActivity" />
+
         <activity
             android:name=".LockPageActivity"/>
 <!--            android:exported="false" />-->

@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#A855F7"
-    android:text="My Notes"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:textColor="#FFFFFF"/>
+        android:text="My Notes"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"/>
 
     <ImageButton
         android:id="@+id/btnMoreOptions"
