@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import java.sql.SQLInput;
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         DBInstance.initialize(this.getApplicationContext());
 
         // Open Notes Section
-        Button buttonOpenNotes = findViewById(R.id.buttonOpenNotes);
+        CardView buttonOpenNotes = findViewById(R.id.buttonOpenNotes);
         buttonOpenNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Open Reminder Section
-        Button buttonSetReminder = findViewById(R.id.buttonSetReminder);
+        CardView buttonSetReminder = findViewById(R.id.buttonSetReminder);
         buttonSetReminder.setOnClickListener(v -> {
             Log.d("MainActivity", "Opening ReminderMainActivity...");
             Intent intent = new Intent(MainActivity.this, ReminderMainActivity.class);

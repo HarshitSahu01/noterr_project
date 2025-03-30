@@ -9,6 +9,15 @@
     <string name="private_notes">Private Notes</string>
 
 
+
+        <string name="app_title">The Noterr app :)</string>
+        <string name="app_description">Your personal note-taking and reminder companion</string>
+        <string name="open_notes">Open Notes</string>
+        <string name="open_reminder">Open Reminder</string>
+        <string name="app_icon">App Icon</string>
+        <string name="notebook_icon">Notebook Icon</string>
+        <string name="bell_icon">Bell Icon</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

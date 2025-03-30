@@ -13,17 +13,14 @@
         android:theme="@style/Theme.Noterr_project"
         tools:targetApi="31">
         <activity
-            android:name=".ReminderEditorActivity"
+            android:name=".activity_main_test"
             android:exported="false" />
         <activity
-            android:name=".ReminderMainActivity"/>
-<!--            android:exported="false" />-->
-        <activity
-            android:name=".PrivateNotesActivity" />
-
-        <activity
-            android:name=".LockPageActivity"/>
-<!--            android:exported="false" />-->
+            android:name=".ReminderEditorActivity"
+            android:exported="false" />
+        <activity android:name=".ReminderMainActivity" /> <!-- android:exported="false" /> -->
+        <activity android:name=".PrivateNotesActivity" />
+        <activity android:name=".LockPageActivity" /> <!-- android:exported="false" /> -->
         <activity
             android:name=".NotesEditorActivity"
             android:exported="false" />
