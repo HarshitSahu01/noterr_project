@@ -8,15 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.sql.SQLInput;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DBInstance.initialize(this.getApplicationContext());
-
-
 
         // Open Notes Section
         Button buttonOpenNotes = findViewById(R.id.buttonOpenNotes);
