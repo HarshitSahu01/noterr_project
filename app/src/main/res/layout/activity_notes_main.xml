@@ -39,6 +39,13 @@
         android:background="#121212"
         android:padding="8dp"/>
 
+    <TextView
+        android:id="@+id/notescount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnMoreOptions"
+
+        />
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

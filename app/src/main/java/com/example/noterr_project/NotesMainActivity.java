@@ -20,6 +20,8 @@ public class NotesMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_main);
+        Note[] notes = Note.getNotes();
+
 
         // Handle Floating Action Button click
         FloatingActionButton fab = findViewById(R.id.fab);
