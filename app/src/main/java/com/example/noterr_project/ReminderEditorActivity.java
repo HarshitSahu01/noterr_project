@@ -25,21 +25,36 @@ public class ReminderEditorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_editor);
 
-        initializeToolbar();
+        // Initialize Toolbar with back button
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("New Reminder");
+        }
+
+        // Initialize views and setup reminder data
         initializeViews();
         setupReminderData();
         setupDateTimePickers();
         setupSaveButton();
     }
 
-    private void initializeToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("New Reminder"); // Default title
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void initializeViews() {
@@ -51,7 +66,6 @@ public class ReminderEditorActivity extends AppCompatActivity {
 
     private void setupReminderData() {
         int reminderId = getIntent().getIntExtra("REMINDER_ID", -1);
-
         if (reminderId != -1) {
             currentReminder = Reminder.getReminder(reminderId);
             if (currentReminder != null) {
@@ -69,12 +83,11 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private void populateReminderData() {
         titleEditText.setText(currentReminder.title);
         descriptionEditText.setText(currentReminder.content);
-
-        if (currentReminder.time != null && !currentReminder.time.isEmpty()) {
-            String[] dateTimeParts = currentReminder.time.split(" ");
-            if (dateTimeParts.length >= 2) {
-                dateEditText.setText(dateTimeParts[0]);
-                timeEditText.setText(dateTimeParts[1]);
+        if (currentReminder.time != null) {
+            String[] parts = currentReminder.time.split(" ");
+            if (parts.length >= 2) {
+                dateEditText.setText(parts[0]);
+                timeEditText.setText(parts[1]);
             }
         }
     }
@@ -124,6 +137,7 @@ public class ReminderEditorActivity extends AppCompatActivity {
                 saveReminder();
                 setResult(RESULT_OK);
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
     }
@@ -133,34 +147,12 @@ public class ReminderEditorActivity extends AppCompatActivity {
             Toast.makeText(this, "Title cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (dateEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (timeEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Please select a time", Toast.LENGTH_SHORT).show();
-            return false;
-        }
         return true;
     }
 
     private void saveReminder() {
-        String title = titleEditText.getText().toString().trim();
-        String content = descriptionEditText.getText().toString().trim();
-        String date = dateEditText.getText().toString().trim();
-        String time = timeEditText.getText().toString().trim();
-
-        currentReminder.setTitle(title);
-        currentReminder.setContent(content);
-        currentReminder.setTime(date + " " + time);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        currentReminder.setTitle(titleEditText.getText().toString().trim());
+        currentReminder.setContent(descriptionEditText.getText().toString().trim());
+        currentReminder.setTime(dateEditText.getText().toString() + " " + timeEditText.getText().toString());
     }
 }
