@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.noterr_project">
 
     <application
         android:allowBackup="true"
@@ -12,28 +13,48 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Noterr_project"
         tools:targetApi="31">
-        <activity
-            android:name=".ReminderEditorActivity"
-            android:exported="false" />
-        <activity android:name=".ReminderMainActivity" /> <!-- android:exported="false" /> -->
-        <activity android:name=".PrivateNotesActivity" />
-        <activity android:name=".LockPageActivity" /> <!-- android:exported="false" /> -->
-        <activity
-            android:name=".NotesEditorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NotesMainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Noterr_project" />
+
+        <!-- Main Entry Point -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Reminder Activities -->
+        <activity
+            android:name=".ReminderMainActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".ReminderEditorActivity"
+            android:exported="false"
+            android:parentActivityName=".ReminderMainActivity" />
+
+        <!-- Notes Activities -->
+        <activity
+            android:name=".NotesMainActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".NotesEditorActivity"
+            android:exported="false"
+            android:parentActivityName=".NotesMainActivity" />
+
+        <!-- Other Activities -->
+        <activity
+            android:name=".PrivateNotesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".LockPageActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
