@@ -65,7 +65,7 @@ public class ReminderEditorActivity extends AppCompatActivity {
     }
 
     private void setupReminderData() {
-        int reminderId = getIntent().getIntExtra("REMINDER_ID", -1);
+        int reminderId = getIntent().getIntExtra("reminderId", -1);
         if (reminderId != -1) {
             currentReminder = Reminder.getReminder(reminderId);
             if (currentReminder != null) {

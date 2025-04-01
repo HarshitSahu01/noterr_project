@@ -53,6 +53,7 @@ public class DBInstance {
         createRemindersTableQuery.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
         createRemindersTableQuery.append("title VARCHAR, ");
         createRemindersTableQuery.append("content VARCHAR, ");
+        createRemindersTableQuery.append("time VARCHAR, ");
         createRemindersTableQuery.append("created_on DATETIME DEFAULT CURRENT_TIMESTAMP, ");
         createRemindersTableQuery.append("modified_on DATETIME DEFAULT CURRENT_TIMESTAMP");
         createRemindersTableQuery.append(")");
