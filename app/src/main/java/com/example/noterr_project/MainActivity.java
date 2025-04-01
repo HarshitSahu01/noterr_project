@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DBInstance.initialize(this.getApplicationContext());
+        ReminderScheduler.init(this);
+        NotificationManager.init(this);
 
         // Open Notes Section
         CardView buttonOpenNotes = findViewById(R.id.buttonOpenNotes);

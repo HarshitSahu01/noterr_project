@@ -83,16 +83,8 @@ public class Reminder {
             );
         }
     }
-    public static int getReminderId(String title) {
-        SQLiteDatabase db = DBInstance.getInstance();
-        try (Cursor c = db.rawQuery("SELECT id FROM reminders WHERE title = ?", new String[]{title})) {
-            if (c.moveToFirst()) {
-                return c.getInt(0);
-            }
-        }
-        return -1; // Return -1 if not found
-    }
     public int delete() {
+        ReminderScheduler.deleteAlarm(id);
         return db.delete("reminders", "id = ?", new String[]{String.valueOf(id)});
     }
 }

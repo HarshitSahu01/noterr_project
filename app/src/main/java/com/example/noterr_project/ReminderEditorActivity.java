@@ -164,4 +164,10 @@ public class ReminderEditorActivity extends AppCompatActivity {
         currentReminder.setContent(descriptionEditText.getText().toString().trim());
         currentReminder.setTime(dateEditText.getText().toString() + " " + timeEditText.getText().toString());
     }
+    // Adding the current reminder to the list of reminders
+    protected void onPause(Bundle savedInstanceState) {
+        super.onPause();
+        saveReminder();
+        ReminderScheduler.scheduleAlarm(currentReminder.id, currentReminder.title, currentReminder.content, currentReminder.time);
+    }
 }
