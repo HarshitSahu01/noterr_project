@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -13,7 +12,6 @@
         android:background="?attr/colorPrimary"
         app:title="Create Task Reminder"/>
 
-    <!-- Form Container -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,26 +23,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Task Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Title">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/editTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Description">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/editTextDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,13 +48,12 @@
                     android:minLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Date (Date Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Date">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/editTextDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,13 +61,12 @@
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Time (Time Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Task Time">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/editTextTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,8 +74,7 @@
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Add Task Button -->
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btnAddTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

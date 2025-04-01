@@ -60,7 +60,7 @@ public class Note {
     public static Note[] getNotes() {
         SQLiteDatabase db = DBInstance.getInstance();
         try(
-                Cursor c = db.rawQuery("SELECT * FROM NOTES", null)
+                Cursor c = db.rawQuery("SELECT * FROM NOTES WHERE private = 0 ORDER BY modified_on DESC", null)
                 ) {
             Note[] notes = new Note[c.getCount()];
             int i = 0;
@@ -70,7 +70,20 @@ public class Note {
             c.close();
             return notes;
         }
-
+    }
+    public static Note[] getPrivateNotes() {
+        SQLiteDatabase db = DBInstance.getInstance();
+        try(
+                Cursor c = db.rawQuery("SELECT * FROM NOTES WHERE private = 1 ORDER BY modified_on DESC", null)
+        ) {
+            Note[] notes = new Note[c.getCount()];
+            int i = 0;
+            while (c.moveToNext()) {
+                notes[i++] = new Note(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3), c.getString(4), c.getString(5));
+            }
+            c.close();
+            return notes;
+        }
     }
 
     public static Note getNote(int id) {
@@ -87,17 +100,5 @@ public class Note {
         return db.delete("notes", "id = ?", new String[]{Integer.toString(id)});
     }
 
-    public void save() {
-    }
-
-    public static int getNoteId(String title) {
-        SQLiteDatabase db = DBInstance.getInstance();
-        try (Cursor c = db.rawQuery("SELECT id FROM NOTES WHERE title = ?", new String[]{title})) {
-            if (c.moveToFirst()) {
-                return c.getInt(0);
-            }
-        }
-        return -1; // Return -1 if not found
-    }
 
 }
