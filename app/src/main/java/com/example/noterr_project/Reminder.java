@@ -52,7 +52,7 @@ public class Reminder {
 
     public static Reminder[] getReminders() {
         if (db == null) db = DBInstance.getInstance(); // Ensure DB is initialized
-        try (Cursor c = db.rawQuery("SELECT * FROM reminders ORDER BY modified_on DESC", null)) {
+        try (Cursor c = db.rawQuery("SELECT * FROM reminders WHERE completed=0 ORDER BY modified_on DESC", null)) {
             Reminder[] reminders = new Reminder[c.getCount()];
             int i = 0;
             while (c.moveToNext()) {

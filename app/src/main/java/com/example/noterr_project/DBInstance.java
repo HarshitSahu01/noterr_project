@@ -54,6 +54,7 @@ public class DBInstance {
         createRemindersTableQuery.append("title VARCHAR, ");
         createRemindersTableQuery.append("content VARCHAR, ");
         createRemindersTableQuery.append("time VARCHAR, ");
+        createRemindersTableQuery.append("completed INTEGER DEFAULT 0, ");
         createRemindersTableQuery.append("created_on DATETIME DEFAULT CURRENT_TIMESTAMP, ");
         createRemindersTableQuery.append("modified_on DATETIME DEFAULT CURRENT_TIMESTAMP");
         createRemindersTableQuery.append(")");

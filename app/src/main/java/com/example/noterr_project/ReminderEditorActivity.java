@@ -2,16 +2,17 @@ package com.example.noterr_project;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import com.google.android.material.button.MaterialButton;
 import java.util.Calendar;
 import java.util.Locale;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class ReminderEditorActivity extends AppCompatActivity {
 
@@ -19,13 +20,13 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private Reminder currentReminder;
     private static final String DATE_FORMAT = "%02d/%02d/%04d";
     private static final String TIME_FORMAT = "%02d:%02d";
+    private Button btnAddTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_editor);
 
-        // Initialize Toolbar with back button
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -34,11 +35,10 @@ public class ReminderEditorActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("New Reminder");
         }
 
-        // Initialize views and setup reminder data
         initializeViews();
         setupReminderData();
         setupDateTimePickers();
-        setupSaveButton();
+        addTextWatchers();
     }
 
     @Override
@@ -62,6 +62,8 @@ public class ReminderEditorActivity extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.editTextDescription);
         dateEditText = findViewById(R.id.editTextDate);
         timeEditText = findViewById(R.id.editTextTime);
+        btnAddTask = findViewById(R.id.btnAddTask);
+        btnAddTask.setOnClickListener(v -> onBackPressed());
     }
 
     private void setupReminderData() {
@@ -111,8 +113,10 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private void showDatePicker() {
         Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(this,
-                (view, year, month, day) -> dateEditText.setText(
-                        String.format(Locale.getDefault(), DATE_FORMAT, day, month + 1, year)),
+                (view, year, month, day) -> {
+                    dateEditText.setText(String.format(Locale.getDefault(), DATE_FORMAT, day, month + 1, year));
+                    saveReminder();
+                },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH))
@@ -122,35 +126,40 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private void showTimePicker() {
         Calendar calendar = Calendar.getInstance();
         new TimePickerDialog(this,
-                (view, hour, minute) -> timeEditText.setText(
-                        String.format(Locale.getDefault(), TIME_FORMAT, hour, minute)),
+                (view, hour, minute) -> {
+                    timeEditText.setText(String.format(Locale.getDefault(), TIME_FORMAT, hour, minute));
+                    saveReminder();
+                },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 true)
                 .show();
     }
 
-    private void setupSaveButton() {
-        MaterialButton saveButton = findViewById(R.id.btnAddTask);
-        saveButton.setOnClickListener(v -> {
-            if (validateInput()) {
-                saveReminder();
-                setResult(RESULT_OK);
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
+    private void addTextWatchers() {
+        titleEditText.addTextChangedListener(reminderTextWatcher);
+        descriptionEditText.addTextChangedListener(reminderTextWatcher);
+        dateEditText.addTextChangedListener(reminderTextWatcher);
+        timeEditText.addTextChangedListener(reminderTextWatcher);
     }
 
-    private boolean validateInput() {
-        if (titleEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Title cannot be empty", Toast.LENGTH_SHORT).show();
-            return false;
+    private final TextWatcher reminderTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            saveReminder();
         }
-        return true;
-    }
+    };
 
     private void saveReminder() {
+        if (titleEditText.getText().toString().trim().isEmpty()) {
+            return;
+        }
         currentReminder.setTitle(titleEditText.getText().toString().trim());
         currentReminder.setContent(descriptionEditText.getText().toString().trim());
         currentReminder.setTime(dateEditText.getText().toString() + " " + timeEditText.getText().toString());
