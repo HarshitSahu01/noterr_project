@@ -69,7 +69,7 @@ public class ReminderMainActivity extends AppCompatActivity {
         }
     }
 
-    private View createCard(final int noteId, String title, String content, String timestamp) {
+    private View createCard(final int reminderId, String title, String content, String timestamp) {
         CardView cardView = new CardView(this);
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, dpToPx(100)
@@ -124,8 +124,8 @@ public class ReminderMainActivity extends AppCompatActivity {
         cardView.addView(relativeLayout);
 
         cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(ReminderMainActivity.this, NotesEditorActivity.class);
-            intent.putExtra("noteId", noteId);
+            Intent intent = new Intent(ReminderMainActivity.this, ReminderEditorActivity.class);
+            intent.putExtra("reminderId", reminderId);
             startActivity(intent);
         });
 
