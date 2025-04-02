@@ -21,9 +21,11 @@ public class NotesEditorActivity extends AppCompatActivity {
 
         // Check if an existing note is being edited
         int noteId = getIntent().getIntExtra("noteId", -1);
+        int is_private = getIntent().getIntExtra("private", 0);
         if (noteId == -1) {
             // Create a new note
             currentNote = new Note();
+            currentNote.setIs_private(1);
         } else {
             // Load existing note
             currentNote = Note.getNote(noteId);
