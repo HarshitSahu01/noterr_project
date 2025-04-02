@@ -2,14 +2,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"> <!-- Pure Black Background -->
+    android:background="@drawable/gradient_background"> <!-- Themed Gradient Background -->
 
     <!-- Header (Purple) -->
     <TextView
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#A855F7"
+        android:background="@color/purple_700"
         android:text="Edit Note"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -24,10 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/headerText"
         android:hint="Title"
-        android:textSize="20sp"
         android:textStyle="bold"
+        android:textSize="20sp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#777777"
+        android:textColorHint="#BBBBBB"
         android:background="@android:color/transparent"
         android:padding="16dp"/>
 
@@ -37,11 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/noteTitle"
-        android:hint="Type Nigga..."
+        android:hint="Type your note here..."
         android:background="@android:color/transparent"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#777777"
+        android:textColorHint="#BBBBBB"
         android:padding="16dp"
         android:gravity="top"
         android:inputType="textMultiLine"/>

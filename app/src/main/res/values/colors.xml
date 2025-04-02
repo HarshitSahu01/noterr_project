@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="cardBackground">#FFAB91</color> <!-- Adjust color as needed -->
-    <color name="timestampColor">#FFFF00</color> <!-- Adjust as needed -->
+    <color name="cardBackground">#3E1E68</color> <!-- Adjust color as needed -->
+    <color name="timestampColor">#B39DDB </color> <!-- Adjust as needed -->
     <color name="gray">#AAAAAA</color>
 </resources>

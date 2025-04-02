@@ -2,14 +2,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"> <!-- Pure Black Background -->
+    android:background="@drawable/gradient_background"> <!-- Themed Gradient Background -->
 
     <!-- Header (Purple) -->
     <TextView
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#A855F7"
+        android:background="@color/purple_700"
         android:text="My Notes"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -60,9 +60,9 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/ic_add"
         android:tint="#FFFFFF"
-        android:backgroundTint="#A855F7"
+        android:backgroundTint="@color/purple_500"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"/>

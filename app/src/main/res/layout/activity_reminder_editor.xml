@@ -3,15 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:title="Create Task Reminder"/>
+        android:background="@color/purple_700"
+        app:title="Create Task Reminder"
+        app:titleTextColor="@android:color/white"/>
 
+    <!-- Form Container -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,24 +27,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Task Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Title">
+                android:hint="Task Title"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Task Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Description">
+                android:hint="Task Description"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,12 +58,15 @@
                     android:minLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Task Date (Date Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Date">
+                android:hint="Task Date"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -61,12 +74,15 @@
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Task Time (Time Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task Time">
+                android:hint="Task Time"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/white">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,12 +90,15 @@
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
+            <!-- Add Task Button -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Task"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/purple_700"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
