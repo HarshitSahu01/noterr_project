@@ -25,7 +25,7 @@ public class NotesEditorActivity extends AppCompatActivity {
         if (noteId == -1) {
             // Create a new note
             currentNote = new Note();
-            currentNote.setIs_private(1);
+            currentNote.setIs_private(is_private);
         } else {
             // Load existing note
             currentNote = Note.getNote(noteId);

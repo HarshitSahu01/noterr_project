@@ -54,7 +54,7 @@ public class Note {
 
     public void setIs_private(int is_private) {
         this.is_private = is_private;
-        db.execSQL("update notes set is_private=? where id = ?", new Object[]{is_private, id});
+        db.execSQL("update notes set private=? where id = ?", new Object[]{is_private, id});
     }
 
     public static Note[] getNotes() {
