@@ -7,135 +7,57 @@
     android:background="@drawable/gradient_background"
     android:fillViewport="true">
 
-    <LinearLayout
+    <!-- Toolbar with Back Button -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPrivate"
         android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/purple_700"
+        android:elevation="4dp"
+        app:title="My Private Notes"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:contentInsetStartWithNavigation="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"/>
+
+    <!-- Notes Count -->
+    <TextView
+        android:id="@+id/notescount"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_below="@id/toolbarPrivate"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="0 Notes"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"/>
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarPrivate"
+    <!-- Notes Container -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/notescount"
+        android:layout_above="@id/fabPrivate"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/notesContainer"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/purple_700"
-            android:elevation="4dp"
-            app:title="My Private Notes"
-            app:titleTextColor="@android:color/white"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/notescount"
-            android:layout_above="@id/fab">
-
-            <LinearLayout
-                android:id="@+id/notesContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp"/>
-        </ScrollView>
-        <!-- Notes as stacked rectangles -->
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="6dp"-->
-<!--            app:cardBackgroundColor="#3E1E68">-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:padding="12dp">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/note1Title"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Note 1"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@android:color/white"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/note1Text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/note1Title"-->
-<!--                    android:text="This is note 1 details."-->
-<!--                    android:textSize="14sp"-->
-<!--                    android:textColor="@android:color/white"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="10:30 AM"-->
-<!--                    android:textSize="12sp"-->
-<!--                    android:textColor="#B39DDB"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"/>-->
-<!--            </RelativeLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
-
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_marginTop="12dp"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="6dp"-->
-<!--            app:cardBackgroundColor="#3E1E68">-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:padding="12dp">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/note2Title"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Note 2"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@android:color/white"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/note2Text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/note2Title"-->
-<!--                    android:text="This is note 2 details."-->
-<!--                    android:textSize="14sp"-->
-<!--                    android:textColor="@android:color/white"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="11:15 AM"-->
-<!--                    android:textSize="12sp"-->
-<!--                    android:textColor="#B39DDB"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"/>-->
-<!--            </RelativeLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
-
-        <!-- Floating Action Button -->
-
-    </LinearLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabPrivate"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add"
-            android:tint="#FFFFFF"
-            android:backgroundTint="@color/purple_500"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="16dp"/>
+            android:orientation="vertical"/>
+    </ScrollView>
 
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPrivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        android:tint="#FFFFFF"
+        android:backgroundTint="@color/purple_500"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"/>
 </RelativeLayout>
