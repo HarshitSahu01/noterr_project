@@ -21,11 +21,16 @@ public class NotesMainActivity extends AppCompatActivity {
 
     private LinearLayout notesContainer;
     private TextView notesCount;
+    private TextView headerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_main);
+
+        headerText = findViewById(R.id.headerText);
+        headerText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_back, 0, 0, 0);
+        headerText.setOnClickListener(v -> onBackPressed());
 
         notesContainer = findViewById(R.id.notesContainer);
         notesCount = findViewById(R.id.notescount);
@@ -35,6 +40,12 @@ public class NotesMainActivity extends AppCompatActivity {
 
         ImageButton btnMoreOptions = findViewById(R.id.btnMoreOptions);
         btnMoreOptions.setOnClickListener(this::showPopupMenu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
@@ -56,59 +67,76 @@ public class NotesMainActivity extends AppCompatActivity {
     }
 
     private View createCard(final int noteId, String title, String content, String timestamp) {
+        // Create CardView
         CardView cardView = new CardView(this);
+
+        // Set layout parameters
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, dpToPx(100)
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                dpToPx(100)
         );
         cardParams.setMargins(0, dpToPx(12), 0, 0);
         cardView.setLayoutParams(cardParams);
+
+        // Style the CardView
         cardView.setCardElevation(dpToPx(6));
         cardView.setRadius(dpToPx(12));
         cardView.setCardBackgroundColor(Color.parseColor("#3E1E68"));
 
+        // Create content layout
         RelativeLayout relativeLayout = new RelativeLayout(this);
         relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
         ));
         relativeLayout.setPadding(dpToPx(12), dpToPx(12), dpToPx(12), dpToPx(12));
 
+        // Create TextViews
         TextView titleText = new TextView(this);
         titleText.setId(View.generateViewId());
         titleText.setText(title);
         titleText.setTextSize(18);
         titleText.setTextColor(Color.WHITE);
-        RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-        titleText.setLayoutParams(titleParams);
 
         TextView contentText = new TextView(this);
-        contentText.setId(View.generateViewId());
         contentText.setText(content);
         contentText.setTextSize(14);
         contentText.setTextColor(Color.WHITE);
-        RelativeLayout.LayoutParams contentParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-        contentParams.addRule(RelativeLayout.BELOW, titleText.getId());
-        contentText.setLayoutParams(contentParams);
 
         TextView timestampText = new TextView(this);
         timestampText.setText(timestamp);
         timestampText.setTextSize(12);
         timestampText.setTextColor(Color.parseColor("#B39DDB"));
+
+        // Set layout rules
+        RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        titleText.setLayoutParams(titleParams);
+
+        RelativeLayout.LayoutParams contentParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        contentParams.addRule(RelativeLayout.BELOW, titleText.getId());
+        contentText.setLayoutParams(contentParams);
+
         RelativeLayout.LayoutParams timestampParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         timestampParams.addRule(RelativeLayout.ALIGN_PARENT_END);
         timestampParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         timestampText.setLayoutParams(timestampParams);
 
+        // Add views to layouts
         relativeLayout.addView(titleText);
         relativeLayout.addView(contentText);
         relativeLayout.addView(timestampText);
         cardView.addView(relativeLayout);
 
+        // Set click listener
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(NotesMainActivity.this, NotesEditorActivity.class);
             intent.putExtra("noteId", noteId);
@@ -121,6 +149,7 @@ public class NotesMainActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
     }
+
     private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater inflater = popupMenu.getMenuInflater();
@@ -131,11 +160,9 @@ public class NotesMainActivity extends AppCompatActivity {
                 Intent intent = new Intent(NotesMainActivity.this, LockPageActivity.class);
                 startActivity(intent);
                 return true;
-            } else {
-                return false;
             }
+            return false;
         });
-
         popupMenu.show();
     }
 }

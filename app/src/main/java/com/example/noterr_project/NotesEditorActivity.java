@@ -3,18 +3,25 @@ package com.example.noterr_project;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NotesEditorActivity extends AppCompatActivity {
     private EditText noteTitle, noteEditText;
     private Note currentNote;
+    private TextView headerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_editor);
+
+        headerText = findViewById(R.id.headerText);
+        headerText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_back, 0, 0, 0);
+        headerText.setOnClickListener(v -> onBackPressed());
 
         noteTitle = findViewById(R.id.noteTitle);
         noteEditText = findViewById(R.id.noteEditText);
@@ -59,5 +66,20 @@ public class NotesEditorActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

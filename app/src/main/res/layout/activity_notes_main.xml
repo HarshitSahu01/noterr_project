@@ -1,10 +1,11 @@
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"> <!-- Themed Gradient Background -->
+    android:background="@drawable/gradient_background">
 
-    <!-- Header (Purple) -->
+    <!-- Header with Back Button -->
     <TextView
         android:id="@+id/headerText"
         android:layout_width="match_parent"
@@ -15,8 +16,12 @@
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@drawable/ic_arrow_back"
+        android:drawableStart="@drawable/ic_arrow_back"
+        android:drawablePadding="8dp"/>
 
+    <!-- More Options Button -->
     <ImageButton
         android:id="@+id/btnMoreOptions"
         android:layout_width="wrap_content"
@@ -39,7 +44,7 @@
         android:textSize="14sp"
         android:textColor="@android:color/white"/>
 
-    <!-- Notes Container (Replaces ListView) -->
+    <!-- Notes Container -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
