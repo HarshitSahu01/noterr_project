@@ -7,12 +7,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import java.util.Calendar;
 import java.util.Locale;
-import android.text.Editable;
-import android.text.TextWatcher;
 
 public class ReminderEditorActivity extends AppCompatActivity {
 
@@ -21,6 +20,9 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private static final String DATE_FORMAT = "%02d/%02d/%04d";
     private static final String TIME_FORMAT = "%02d:%02d";
     private Button btnAddTask;
+
+    // Store original data to detect changes
+    private String originalTitle, originalDescription, originalTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class ReminderEditorActivity extends AppCompatActivity {
         initializeViews();
         setupReminderData();
         setupDateTimePickers();
-        addTextWatchers();
     }
 
     @Override
@@ -80,6 +81,11 @@ public class ReminderEditorActivity extends AppCompatActivity {
             currentReminder = new Reminder();
             setDefaultDateTime();
         }
+
+        // Store original data for change detection
+        originalTitle = titleEditText.getText().toString();
+        originalDescription = descriptionEditText.getText().toString();
+        originalTime = dateEditText.getText().toString() + " " + timeEditText.getText().toString();
     }
 
     private void populateReminderData() {
@@ -113,10 +119,7 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private void showDatePicker() {
         Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(this,
-                (view, year, month, day) -> {
-                    dateEditText.setText(String.format(Locale.getDefault(), DATE_FORMAT, day, month + 1, year));
-                    saveReminder();
-                },
+                (view, year, month, day) -> dateEditText.setText(String.format(Locale.getDefault(), DATE_FORMAT, day, month + 1, year)),
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH))
@@ -126,49 +129,52 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private void showTimePicker() {
         Calendar calendar = Calendar.getInstance();
         new TimePickerDialog(this,
-                (view, hour, minute) -> {
-                    timeEditText.setText(String.format(Locale.getDefault(), TIME_FORMAT, hour, minute));
-                    saveReminder();
-                },
+                (view, hour, minute) -> timeEditText.setText(String.format(Locale.getDefault(), TIME_FORMAT, hour, minute)),
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 true)
                 .show();
     }
 
-    private void addTextWatchers() {
-        titleEditText.addTextChangedListener(reminderTextWatcher);
-        descriptionEditText.addTextChangedListener(reminderTextWatcher);
-        dateEditText.addTextChangedListener(reminderTextWatcher);
-        timeEditText.addTextChangedListener(reminderTextWatcher);
-    }
-
-    private final TextWatcher reminderTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            saveReminder();
-        }
-    };
-
-    private void saveReminder() {
-        if (titleEditText.getText().toString().trim().isEmpty()) {
-            return;
-        }
-        currentReminder.setTitle(titleEditText.getText().toString().trim());
-        currentReminder.setContent(descriptionEditText.getText().toString().trim());
-        currentReminder.setTime(dateEditText.getText().toString() + " " + timeEditText.getText().toString());
-    }
-    // Adding the current reminder to the list of reminders
     @Override
     protected void onPause() {
         super.onPause();
-        saveReminder();
-        ReminderScheduler.scheduleAlarm(currentReminder.id, currentReminder.title, currentReminder.content, currentReminder.time);
+
+        String newTitle = titleEditText.getText().toString().trim();
+        String newDescription = descriptionEditText.getText().toString().trim();
+        String newTime = dateEditText.getText().toString() + " " + timeEditText.getText().toString();
+
+        boolean isNewReminder = currentReminder.id == -1;
+        boolean isTitleEmpty = newTitle.isEmpty();
+        boolean isDescriptionEmpty = newDescription.isEmpty();
+        boolean isTimeEmpty = dateEditText.getText().toString().isEmpty() || timeEditText.getText().toString().isEmpty();
+        boolean isEmpty = isTitleEmpty && isDescriptionEmpty && isTimeEmpty;
+
+        boolean hasChanged = !newTitle.equals(originalTitle) || !newDescription.equals(originalDescription) || !newTime.equals(originalTime);
+
+        if (isTitleEmpty) {
+            currentReminder.delete();
+            Toast.makeText(this, "Empty Reminder", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isNewReminder && isEmpty) {
+            // If it's a new reminder and empty, don't save.
+            return;
+        }
+
+        if (!isNewReminder && isEmpty) {
+            // If it's an old reminder and now empty, don't save.
+            return;
+        }
+
+        if (hasChanged) {
+            // Save changes and schedule reminder
+            currentReminder.setTitle(newTitle);
+            currentReminder.setContent(newDescription);
+            currentReminder.setTime(newTime);
+
+            ReminderScheduler.scheduleAlarm(currentReminder.id, newTitle, newDescription, newTime);
+        }
     }
 }
