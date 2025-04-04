@@ -1,5 +1,6 @@
 package com.example.noterr_project;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -67,10 +69,10 @@ public class NotesMainActivity extends AppCompatActivity {
     }
 
     private View createCard(final int noteId, String title, String content, String timestamp) {
-        // Create CardView
+
         CardView cardView = new CardView(this);
 
-        // Set layout parameters
+
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 dpToPx(100)
@@ -78,12 +80,12 @@ public class NotesMainActivity extends AppCompatActivity {
         cardParams.setMargins(0, dpToPx(12), 0, 0);
         cardView.setLayoutParams(cardParams);
 
-        // Style the CardView
+
         cardView.setCardElevation(dpToPx(6));
         cardView.setRadius(dpToPx(12));
         cardView.setCardBackgroundColor(Color.parseColor("#3E1E68"));
 
-        // Create content layout
+
         RelativeLayout relativeLayout = new RelativeLayout(this);
         relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -91,7 +93,7 @@ public class NotesMainActivity extends AppCompatActivity {
         ));
         relativeLayout.setPadding(dpToPx(12), dpToPx(12), dpToPx(12), dpToPx(12));
 
-        // Create TextViews
+
         TextView titleText = new TextView(this);
         titleText.setId(View.generateViewId());
         titleText.setText(title);
@@ -108,7 +110,13 @@ public class NotesMainActivity extends AppCompatActivity {
         timestampText.setTextSize(12);
         timestampText.setTextColor(Color.parseColor("#B39DDB"));
 
-        // Set layout rules
+
+        ImageView deleteButton = new ImageView(this);
+        deleteButton.setImageResource(R.drawable.ic_delete);
+        deleteButton.setColorFilter(Color.WHITE);
+        deleteButton.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
+
+
         RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -130,20 +138,44 @@ public class NotesMainActivity extends AppCompatActivity {
         timestampParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         timestampText.setLayoutParams(timestampParams);
 
-        // Add views to layouts
+        RelativeLayout.LayoutParams deleteParams = new RelativeLayout.LayoutParams(
+                dpToPx(36), dpToPx(36)
+        );
+        deleteParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        deleteParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        deleteButton.setLayoutParams(deleteParams);
+
+
         relativeLayout.addView(titleText);
         relativeLayout.addView(contentText);
         relativeLayout.addView(timestampText);
+        relativeLayout.addView(deleteButton);
         cardView.addView(relativeLayout);
 
-        // Set click listener
+
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(NotesMainActivity.this, NotesEditorActivity.class);
             intent.putExtra("noteId", noteId);
             startActivity(intent);
         });
 
+
+        deleteButton.setOnClickListener(v -> showDeleteConfirmation(noteId));
+
         return cardView;
+    }
+
+
+    private void showDeleteConfirmation(final int noteId) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Note")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    Note.deleteNote(noteId);
+                    loadNotes();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private int dpToPx(int dp) {

@@ -20,9 +20,9 @@ public class Note {
 
     public Note() {
         db = DBInstance.getInstance();
-        db.execSQL("insert into notes (title, content) values ('', '')");
+        db.execSQL("INSERT INTO notes (title, content) VALUES ('', '')");
         try (
-                Cursor c = db.rawQuery("select id, created_on, modified_on from notes where id = (select max(id) from notes)", null)
+                Cursor c = db.rawQuery("SELECT id, created_on, modified_on FROM notes WHERE id = (SELECT MAX(id) FROM notes)", null)
         ) {
             if (c.moveToFirst()) {
                 id = c.getInt(0);
@@ -44,24 +44,24 @@ public class Note {
 
     public void setTitle(String title) {
         this.title = title.replaceAll("(['\"\\\\])", "\\\\$1");
-        db.execSQL("update notes set title=? where id = ?", new Object[]{title, id});
+        db.execSQL("UPDATE notes SET title=? WHERE id = ?", new Object[]{title, id});
     }
 
     public void setContent(String content) {
         this.content = content.replaceAll("(['\"\\\\])", "\\\\$1");
-        db.execSQL("update notes set content=? where id = ?", new Object[]{content, id});
+        db.execSQL("UPDATE notes SET content=? WHERE id = ?", new Object[]{content, id});
     }
 
     public void setIs_private(int is_private) {
         this.is_private = is_private;
-        db.execSQL("update notes set private=? where id = ?", new Object[]{is_private, id});
+        db.execSQL("UPDATE notes SET private=? WHERE id = ?", new Object[]{is_private, id});
     }
 
     public static Note[] getNotes() {
         SQLiteDatabase db = DBInstance.getInstance();
-        try(
+        try (
                 Cursor c = db.rawQuery("SELECT * FROM NOTES WHERE private = 0 ORDER BY modified_on DESC", null)
-                ) {
+        ) {
             Note[] notes = new Note[c.getCount()];
             int i = 0;
             while (c.moveToNext()) {
@@ -71,9 +71,10 @@ public class Note {
             return notes;
         }
     }
+
     public static Note[] getPrivateNotes() {
         SQLiteDatabase db = DBInstance.getInstance();
-        try(
+        try (
                 Cursor c = db.rawQuery("SELECT * FROM NOTES WHERE private = 1 ORDER BY modified_on DESC", null)
         ) {
             Note[] notes = new Note[c.getCount()];
@@ -100,5 +101,9 @@ public class Note {
         return db.delete("notes", "id = ?", new String[]{Integer.toString(id)});
     }
 
-
+    // Added Static Delete Method
+    public static int deleteNote(int noteId) {
+        SQLiteDatabase db = DBInstance.getInstance();
+        return db.delete("notes", "id = ?", new String[]{String.valueOf(noteId)});
+    }
 }

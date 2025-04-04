@@ -1,13 +1,16 @@
 package com.example.noterr_project;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -100,6 +103,11 @@ public class PrivateNotesActivity extends AppCompatActivity {
         timestampText.setTextSize(12);
         timestampText.setTextColor(Color.parseColor("#B39DDB"));
 
+        ImageView deleteButton = new ImageView(this);
+        deleteButton.setImageResource(R.drawable.ic_delete);
+        deleteButton.setColorFilter(Color.WHITE);
+        deleteButton.setPadding(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));
+
         RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -121,9 +129,18 @@ public class PrivateNotesActivity extends AppCompatActivity {
         timestampParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         timestampText.setLayoutParams(timestampParams);
 
+        RelativeLayout.LayoutParams deleteParams = new RelativeLayout.LayoutParams(
+                dpToPx(36),
+                dpToPx(36)
+        );
+        deleteParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        deleteParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        deleteButton.setLayoutParams(deleteParams);
+
         relativeLayout.addView(titleText);
         relativeLayout.addView(contentText);
         relativeLayout.addView(timestampText);
+        relativeLayout.addView(deleteButton);
         cardView.addView(relativeLayout);
 
         cardView.setOnClickListener(v -> {
@@ -133,7 +150,28 @@ public class PrivateNotesActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog(noteId));
+
         return cardView;
+    }
+
+    private void showDeleteConfirmationDialog(int noteId) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Note")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Delete", (dialog, which) -> deleteNote(noteId))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void deleteNote(int noteId) {
+        int deletedRows = Note.deleteNote(noteId);
+        if (deletedRows > 0) {
+            Toast.makeText(this, "Note deleted successfully", Toast.LENGTH_SHORT).show();
+            loadNotes();
+        } else {
+            Toast.makeText(this, "Failed to delete note", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private int dpToPx(int dp) {
