@@ -10,6 +10,7 @@ public class Reminder {
     String time;
     String created_on;
     String modified_on;
+    int completed;
     private static SQLiteDatabase db = DBInstance.getInstance();
 
     public Reminder() {
@@ -24,15 +25,17 @@ public class Reminder {
         this.title = "";
         this.content = "";
         this.time = "";
+        this.completed=0;
     }
 
-    private Reminder(int id, String title, String content, String time, String created_on, String modified_on) {
+    private Reminder(int id, String title, String content, String time, String created_on, String modified_on, int completed) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.time = time;
         this.created_on = created_on;
         this.modified_on = modified_on;
+        this.completed = completed;
     }
 
     public void setTitle(String title) {
@@ -50,9 +53,14 @@ public class Reminder {
         db.execSQL("UPDATE reminders SET time = ? WHERE id = ?", new String[]{time, String.valueOf(id)});
     }
 
+    public void setCompleted(int completed) {
+        this.completed = completed;
+        db.execSQL("UPDATE reminders SET completed = ? WHERE id = ?", new String[]{String.valueOf(completed), String.valueOf(id)});
+    }
+
     public static Reminder[] getReminders() {
         if (db == null) db = DBInstance.getInstance(); // Ensure DB is initialized
-        try (Cursor c = db.rawQuery("SELECT * FROM reminders WHERE completed=0 ORDER BY modified_on DESC", null)) {
+        try (Cursor c = db.rawQuery("SELECT * FROM reminders WHERE completed=0 ORDER BY time ASC", null)) {
             Reminder[] reminders = new Reminder[c.getCount()];
             int i = 0;
             while (c.moveToNext()) {
@@ -62,7 +70,8 @@ public class Reminder {
                         c.getString(2),
                         c.getString(3),
                         c.getString(4),
-                        c.getString(5)
+                        c.getString(5),
+                        c.getInt(6)
                 );
             }
             return reminders;
@@ -79,7 +88,8 @@ public class Reminder {
                     c.getString(2),
                     c.getString(3),
                     c.getString(4),
-                    c.getString(5)
+                    c.getString(5),
+                    c.getInt(6)
             );
         }
     }

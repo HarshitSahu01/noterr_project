@@ -32,6 +32,8 @@ public class NotificationCreator {
     }
 
     public static void sendNotification(int id, String title, String content, String time) {
+        Reminder reminder = Reminder.getReminder(id);
+        reminder.setCompleted(1);
         PendingIntent pendingIntent = PendingIntent.getActivity(appContext, 0, new Intent(appContext, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext, CHANNEL_ID)
