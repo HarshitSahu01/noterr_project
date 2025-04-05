@@ -101,7 +101,6 @@ public class Note {
         return db.delete("notes", "id = ?", new String[]{Integer.toString(id)});
     }
 
-    // Added Static Delete Method
     public static int deleteNote(int noteId) {
         SQLiteDatabase db = DBInstance.getInstance();
         return db.delete("notes", "id = ?", new String[]{String.valueOf(noteId)});
