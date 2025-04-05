@@ -51,13 +51,6 @@ public class ReminderEditorActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        setResult(RESULT_CANCELED);
-        super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
     private void initializeViews() {
         titleEditText = findViewById(R.id.editTextTitle);
         descriptionEditText = findViewById(R.id.editTextDescription);

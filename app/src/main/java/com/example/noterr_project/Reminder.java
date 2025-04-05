@@ -93,6 +93,11 @@ public class Reminder {
             );
         }
     }
+    public static void deleteReminder(int id) {
+        ReminderScheduler.deleteAlarm(id);
+        db.delete("reminders", "id = ?", new String[]{String.valueOf(id)});
+    }
+
     public int delete() {
         ReminderScheduler.deleteAlarm(id);
         return db.delete("reminders", "id = ?", new String[]{String.valueOf(id)});
