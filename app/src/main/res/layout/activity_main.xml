@@ -128,8 +128,8 @@
             android:id="@+id/testBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Run Test"
-            android:visibility="gone"
+            android:text="Try AI chat"
+            android:visibility="visible"
             />
     </LinearLayout>
 </RelativeLayout>

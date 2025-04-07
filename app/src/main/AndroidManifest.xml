@@ -4,8 +4,9 @@
     package="com.example.noterr_project">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,25 +19,27 @@
         android:theme="@style/Theme.Noterr_project"
         tools:targetApi="31">
         <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Reminder Activities with proper parent relationships -->
+        </activity> <!-- Reminder Activities with proper parent relationships -->
         <activity
             android:name=".ReminderMainActivity"
             android:exported="false"
@@ -45,7 +48,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ReminderEditorActivity"
             android:exported="false"
@@ -53,9 +55,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReminderMainActivity" />
-        </activity>
-
-        <!-- Notes Activities -->
+        </activity> <!-- Notes Activities -->
         <activity
             android:name=".NotesMainActivity"
             android:exported="false"
@@ -64,7 +64,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".NotesEditorActivity"
             android:exported="false"
@@ -72,9 +71,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".NotesMainActivity" />
-        </activity>
-
-        <!-- Other Activities -->
+        </activity> <!-- Other Activities -->
         <activity
             android:name=".PrivateNotesActivity"
             android:exported="false"
@@ -83,7 +80,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".LockPageActivity"
             android:exported="false" />

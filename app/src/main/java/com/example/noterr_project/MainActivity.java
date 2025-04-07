@@ -16,8 +16,10 @@ import androidx.cardview.widget.CardView;
 public class MainActivity extends AppCompatActivity {
     protected void test() {
 //        NotificationManager.sendNotification(1, "HI", "BYE", "121:11");
-        ReminderScheduler.scheduleAlarm(1, "test1", "nothing", "03/04/2025 16:30");
-        Log.e("Data", "Function  called");
+//        ReminderScheduler.scheduleAlarm(1, "test1", "nothing", "03/04/2025 16:30");
+//        Log.e("Data", "Function  called");
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
 
