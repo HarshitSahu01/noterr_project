@@ -21,7 +21,7 @@
         app:contentInsetStartWithNavigation="16dp"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:paddingTop="12dp"/>
+        android:paddingTop="8dp"/>
 
     <!-- Notes Count -->
     <TextView

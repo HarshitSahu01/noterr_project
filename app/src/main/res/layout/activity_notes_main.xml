@@ -17,26 +17,27 @@
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:paddingTop="12dp"
+        android:paddingTop="8dp"
         android:textColor="#FFFFFF"
         android:drawableLeft="@drawable/ic_arrow_back"
         android:drawableStart="@drawable/ic_arrow_back"
         android:drawablePadding="8dp" />
 
     <!-- More Options Button -->
+
+    <!-- Notes Count -->
     <ImageButton
         android:id="@+id/btnMoreOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="21dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:src="@android:drawable/ic_menu_more"
         app:tint="#FFFFFF" />
 
-    <!-- Notes Count -->
     <TextView
         android:id="@+id/notescount"
         android:layout_width="wrap_content"
