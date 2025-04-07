@@ -130,6 +130,7 @@
             android:layout_height="wrap_content"
             android:text="Try AI chat"
             android:visibility="visible"
+
             />
     </LinearLayout>
 </RelativeLayout>

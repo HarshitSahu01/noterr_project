@@ -33,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private TextView responseTextView;
     private TextView userInputTextView;
+    private TextView headerText; // Add this line
     private CardView userInputCard;
     private EditText promptEditText;
     private FloatingActionButton sendButton;
@@ -49,10 +50,14 @@ public class ChatActivity extends AppCompatActivity {
 
         responseTextView = findViewById(R.id.responseTextView);
         userInputTextView = findViewById(R.id.userInputTextView);
+        headerText = findViewById(R.id.headerText); // Initialize header
         userInputCard = findViewById(R.id.userInputCard);
         promptEditText = findViewById(R.id.promptEditText);
         sendButton = findViewById(R.id.sendButton);
         progressBar = findViewById(R.id.progressBar);
+
+        // Set click listener for back arrow
+        headerText.setOnClickListener(v -> onBackPressed());
 
         client = new OkHttpClient();
 
@@ -65,6 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    // Rest of your existing methods remain exactly the same
     private void sendPromptToGemini(String userPrompt) {
         userInputTextView.setText(userPrompt);
         userInputTextView.setVisibility(View.VISIBLE);
