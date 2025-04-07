@@ -6,20 +6,25 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/headerText"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="60dp"
         android:background="@color/purple_700"
-        app:title="Create Task Reminder"
-        app:titleTextColor="@android:color/white"/>
+        android:text="Create Task Reminder"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@drawable/ic_arrow_back"
+        android:drawableStart="@drawable/ic_arrow_back"
+        android:drawablePadding="8dp"/>
 
-    <!-- Form Container -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/headerText"
         android:padding="16dp">
 
         <LinearLayout
@@ -27,7 +32,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Task Title -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,11 +45,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:layout_marginVertical="5sp"
-                    />
+                    android:layout_marginVertical="5sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Description -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +65,6 @@
                     android:minLines="3"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Date (Date Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +82,6 @@
                     android:layout_marginVertical="5sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Task Time (Time Picker) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +99,6 @@
                     android:layout_marginVertical="5sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Add Task Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddTask"
                 android:layout_width="match_parent"

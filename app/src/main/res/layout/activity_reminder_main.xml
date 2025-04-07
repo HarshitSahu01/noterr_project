@@ -6,21 +6,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/headerText"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="60dp"
         android:background="@color/purple_700"
-        app:title="Task Reminders"
-        app:titleTextColor="@android:color/white"/>
+        android:text="Task Reminders"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"
+        android:drawableLeft="@drawable/ic_arrow_back"
+        android:drawableStart="@drawable/ic_arrow_back"
+        android:drawablePadding="8dp"/>
 
-    <!-- ScrollView for Reminders -->
     <ScrollView
         android:id="@+id/scrollViewReminders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/headerText"
         android:layout_margin="8dp">
 
         <LinearLayout
@@ -30,7 +35,6 @@
             android:orientation="vertical"/>
     </ScrollView>
 
-    <!-- Floating Action Button to Add New Reminder -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddReminder"
         android:layout_width="wrap_content"

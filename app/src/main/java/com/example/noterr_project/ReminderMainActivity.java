@@ -4,33 +4,28 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ReminderMainActivity extends AppCompatActivity {
     private LinearLayout reminderContainer;
+    private TextView headerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Task Reminders");
-        }
+        headerText = findViewById(R.id.headerText);
+        headerText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_back, 0, 0, 0);
+        headerText.setOnClickListener(v -> onBackPressed());
 
         reminderContainer = findViewById(R.id.remindersContainer);
         FloatingActionButton fab = findViewById(R.id.fabAddReminder);
@@ -54,6 +49,7 @@ public class ReminderMainActivity extends AppCompatActivity {
             reminderContainer.addView(reminderCard);
         }
     }
+
     private View createCard(final int reminderId, String title, String content, String timestamp) {
         CardView cardView = new CardView(this);
 
@@ -140,6 +136,7 @@ public class ReminderMainActivity extends AppCompatActivity {
 
         return cardView;
     }
+
     private void showDeleteConfirmation(final int reminderId) {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Note")
@@ -151,8 +148,8 @@ public class ReminderMainActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
     private int dpToPx(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
     }
-
 }

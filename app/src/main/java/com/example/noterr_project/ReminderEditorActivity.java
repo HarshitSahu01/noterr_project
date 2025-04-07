@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -20,8 +21,8 @@ public class ReminderEditorActivity extends AppCompatActivity {
     private static final String DATE_FORMAT = "%02d/%02d/%04d";
     private static final String TIME_FORMAT = "%02d:%02d";
     private Button btnAddTask;
+    private TextView headerText;
 
-    // Store original data to detect changes
     private String originalTitle, originalDescription, originalTime;
 
     @Override
@@ -29,13 +30,9 @@ public class ReminderEditorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_editor);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("New Reminder");
-        }
+        headerText = findViewById(R.id.headerText);
+        headerText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_arrow_back, 0, 0, 0);
+        headerText.setOnClickListener(v -> onBackPressed());
 
         initializeViews();
         setupReminderData();
@@ -66,16 +63,13 @@ public class ReminderEditorActivity extends AppCompatActivity {
             currentReminder = Reminder.getReminder(reminderId);
             if (currentReminder != null) {
                 populateReminderData();
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle("Edit Reminder");
-                }
+                headerText.setText("Edit Reminder");
             }
         } else {
             currentReminder = new Reminder();
             setDefaultDateTime();
         }
 
-        // Store original data for change detection
         originalTitle = titleEditText.getText().toString();
         originalDescription = descriptionEditText.getText().toString();
         originalTime = dateEditText.getText().toString() + " " + timeEditText.getText().toString();
@@ -152,17 +146,14 @@ public class ReminderEditorActivity extends AppCompatActivity {
         }
 
         if (isNewReminder && isEmpty) {
-            // If it's a new reminder and empty, don't save.
             return;
         }
 
         if (!isNewReminder && isEmpty) {
-            // If it's an old reminder and now empty, don't save.
             return;
         }
 
         if (hasChanged) {
-            // Save changes and schedule reminder
             currentReminder.setTitle(newTitle);
             currentReminder.setContent(newDescription);
             currentReminder.setTime(newTime);
