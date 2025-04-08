@@ -16,6 +16,7 @@ public class LockPageActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "LockPrefs";
     private static final String PREF_PASSWORD = "app_password";
+    private static final String PREF_FIRST_LOGIN = "first_login";
     private static String DEFAULT_PASSWORD = ""; // Default password
 
     private SharedPreferences sharedPreferences;
@@ -25,18 +26,20 @@ public class LockPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_page);
 
-
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        // Check if this is the first login
+        boolean isFirstLogin = sharedPreferences.getBoolean(PREF_FIRST_LOGIN, true);
 
-        // Get the stored password or use default if not set
-       String password = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
-        if(password.isEmpty()){
+        if (isFirstLogin) {
+            // First login, ask user to create a password
             createPassword();
-            password = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
+            return; // Important: Return here to prevent the rest of onCreate from executing
         }
-        final String correctPassword = password;
+
+        // Get the stored password for verification
+        final String correctPassword = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
 
         EditText editTextPassword = findViewById(R.id.editTextPassword);
         Button buttonUnlock = findViewById(R.id.buttonUnlock);
@@ -60,38 +63,62 @@ public class LockPageActivity extends AppCompatActivity {
         textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Reset to default password when forgot password is clicked
+                // Reset password by setting first login to true again
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(PREF_PASSWORD, DEFAULT_PASSWORD);
+                editor.putBoolean(PREF_FIRST_LOGIN, true);
                 editor.apply();
-                Toast.makeText(LockPageActivity.this, "Password reset to default. New password: " + DEFAULT_PASSWORD, Toast.LENGTH_LONG).show();
+
+                Toast.makeText(LockPageActivity.this, "Please set a new password", Toast.LENGTH_SHORT).show();
+                recreate(); // Restart the activity to create a new password
             }
         });
     }
-        private void createPassword(){
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-            alert.setTitle("Title");
-            alert.setMessage("Message");
+    private void createPassword() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-// Set an EditText view to get user input
-            final EditText input = new EditText(this);
-            alert.setView(input);
+        alert.setTitle("Create Password");
+        alert.setMessage("Please set a password for your private notes");
 
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = String.valueOf(input.getText());
-                    Toast.makeText(LockPageActivity.this,value,Toast.LENGTH_LONG);
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setCancelable(false); // Prevent dismissing without a choice
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = String.valueOf(input.getText()).trim();
+                if (value.isEmpty()) {
+                    Toast.makeText(LockPageActivity.this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LockPageActivity.this, NotesMainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Save the new password
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(PREF_PASSWORD, value);
+                    editor.putBoolean(PREF_FIRST_LOGIN, false); // Mark first login as completed
+                    editor.apply();
+
+                    // Continue to private notes
+                    Toast.makeText(LockPageActivity.this, "Password created successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LockPageActivity.this, PrivateNotesActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-            });
+            }
+        });
 
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
-                }
-            });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // User canceled password creation
+                Intent intent = new Intent(LockPageActivity.this, NotesMainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-            alert.show();
-        }
-
+        alert.show();
+    }
 }
