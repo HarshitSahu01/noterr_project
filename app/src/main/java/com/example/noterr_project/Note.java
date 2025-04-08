@@ -12,12 +12,6 @@ public class Note {
     String modified_on;
     SQLiteDatabase db;
 
-    private static Note[] notes = {
-            new Note(1, "Title 1", "Content 1", 0, "", ""),
-            new Note(2, "Title 2", "Content 2", 0, "", ""),
-            new Note(3, "Title 3", "Content 3", 0, "", ""),
-    };
-
     public Note() {
         db = DBInstance.getInstance();
         db.execSQL("INSERT INTO notes (title, content) VALUES ('', '')");

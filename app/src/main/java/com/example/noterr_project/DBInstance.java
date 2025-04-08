@@ -1,6 +1,5 @@
 package com.example.noterr_project;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 import android.content.Context;
@@ -11,13 +10,13 @@ public class DBInstance {
 
     private DBInstance() {}
 
-    public static void initialize(Context context) {
+    public static void init(Context context) {
         if (db != null) return;
         String dbName = "noterr_db";
         String dbPath = context.getFilesDir().getPath() + "/" + dbName;
         db = openOrCreateDatabase(dbPath, null);
 
-        // Create config table
+        // Create config table, not used
         StringBuilder createConfigQuery = new StringBuilder();
         createConfigQuery.append("CREATE TABLE IF NOT EXISTS config(");
         createConfigQuery.append("key VARCHAR PRIMARY KEY, ");

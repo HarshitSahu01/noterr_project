@@ -33,14 +33,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private TextView responseTextView;
     private TextView userInputTextView;
-    private TextView headerText; // Add this line
+    private TextView headerText;
     private CardView userInputCard;
     private EditText promptEditText;
     private FloatingActionButton sendButton;
-    private ProgressBar progressBar;
     private OkHttpClient client;
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-    private static final String API_KEY = "AIzaSyCLHke-0z-NA6JNysupMvsk7nuIXWfTyAA"; // Replace with your actual Gemini API key
+    private static final String API_KEY = "AIzaSyCLHke-0z-NA6JNysupMvsk7nuIXWfTyAA";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     @Override
@@ -54,9 +53,8 @@ public class ChatActivity extends AppCompatActivity {
         userInputCard = findViewById(R.id.userInputCard);
         promptEditText = findViewById(R.id.promptEditText);
         sendButton = findViewById(R.id.sendButton);
-        progressBar = findViewById(R.id.progressBar);
 
-        // Set click listener for back arrow
+
         headerText.setOnClickListener(v -> onBackPressed());
 
         client = new OkHttpClient();
@@ -70,12 +68,10 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // Rest of your existing methods remain exactly the same
     private void sendPromptToGemini(String userPrompt) {
         userInputTextView.setText(userPrompt);
         userInputTextView.setVisibility(View.VISIBLE);
         userInputCard.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
         responseTextView.setText("Processing your request...");
 
         try {
@@ -86,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
             messagePart.put("text",
                     "Current datetime is " + currentDateTime + ". " +
                             "You are an assistant that extracts structured reminder data. " +
-                            "From the following user input, extract only the following fields in **strict JSON format**: " +
+                            "From the following user input, extract only the following fields in **strict JSON format** without quotations and markdown: " +
                             "`title` (1-10 words), `description` (1-20 words), `scheduledTime` (DD/MM/YYYY HH:MM). " +
                             "Do NOT include any extra explanation or text. Only output a pure JSON object. " +
                             "If any fields are missing or invalid, return a JSON object like: {\"error\": \"Missing title/description/scheduledTime\"}.\n\n" +
@@ -108,7 +104,6 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
                         responseTextView.setText("Network error. Please try again.");
                     });
                 }
@@ -117,7 +112,6 @@ public class ChatActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     final String responseBody = response.body().string();
                     runOnUiThread(() -> {
-                        progressBar.setVisibility(View.GONE);
                         if (response.isSuccessful()) {
                             processGeminiResponse(responseBody);
                         } else {
@@ -128,7 +122,6 @@ public class ChatActivity extends AppCompatActivity {
             });
 
         } catch (JSONException e) {
-            progressBar.setVisibility(View.GONE);
             responseTextView.setText("Something went wrong. Please try again.");
         }
     }
@@ -154,6 +147,8 @@ public class ChatActivity extends AppCompatActivity {
             // Attempt to parse text as JSON
             JSONObject jsonResponse;
             try {
+                textResponse = textResponse.replace("```json\\n", "").replace("\\n", "");
+                System.out.println(textResponse);
                 jsonResponse = new JSONObject(textResponse);
             } catch (JSONException e) {
                 responseTextView.setText(textResponse);
@@ -172,6 +167,8 @@ public class ChatActivity extends AppCompatActivity {
                 reminder.setTitle(title);
                 reminder.setContent(description);
                 reminder.setTime(scheduledTimeStr);
+
+                ReminderScheduler.scheduleAlarm(reminder.id, title, description, scheduledTimeStr);
 
                 responseTextView.setText("Reminder created: " + title + " scheduled for " + scheduledTimeStr);
             } else if (jsonResponse.has("message")) {

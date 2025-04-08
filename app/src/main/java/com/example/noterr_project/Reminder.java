@@ -59,7 +59,7 @@ public class Reminder {
     }
 
     public static Reminder[] getReminders() {
-        if (db == null) db = DBInstance.getInstance(); // Ensure DB is initialized
+        if (db == null) db = DBInstance.getInstance();
         try (Cursor c = db.rawQuery("SELECT * FROM reminders WHERE completed=0 ORDER BY time ASC", null)) {
             Reminder[] reminders = new Reminder[c.getCount()];
             int i = 0;

@@ -39,15 +39,6 @@ public class ReminderEditorActivity extends AppCompatActivity {
         setupDateTimePickers();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void initializeViews() {
         titleEditText = findViewById(R.id.editTextTitle);
         descriptionEditText = findViewById(R.id.editTextDescription);
@@ -131,25 +122,13 @@ public class ReminderEditorActivity extends AppCompatActivity {
         String newDescription = descriptionEditText.getText().toString().trim();
         String newTime = dateEditText.getText().toString() + " " + timeEditText.getText().toString();
 
-        boolean isNewReminder = currentReminder.id == -1;
         boolean isTitleEmpty = newTitle.isEmpty();
-        boolean isDescriptionEmpty = newDescription.isEmpty();
-        boolean isTimeEmpty = dateEditText.getText().toString().isEmpty() || timeEditText.getText().toString().isEmpty();
-        boolean isEmpty = isTitleEmpty && isDescriptionEmpty && isTimeEmpty;
 
         boolean hasChanged = !newTitle.equals(originalTitle) || !newDescription.equals(originalDescription) || !newTime.equals(originalTime);
 
         if (isTitleEmpty) {
             currentReminder.delete();
             Toast.makeText(this, "Empty Reminder", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (isNewReminder && isEmpty) {
-            return;
-        }
-
-        if (!isNewReminder && isEmpty) {
             return;
         }
 
