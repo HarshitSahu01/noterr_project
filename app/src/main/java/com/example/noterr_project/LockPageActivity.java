@@ -1,5 +1,7 @@
 package com.example.noterr_project;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +16,7 @@ public class LockPageActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "LockPrefs";
     private static final String PREF_PASSWORD = "app_password";
-    private static final String DEFAULT_PASSWORD = "12345"; // Default password
+    private static String DEFAULT_PASSWORD = ""; // Default password
 
     private SharedPreferences sharedPreferences;
 
@@ -23,11 +25,18 @@ public class LockPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_page);
 
+
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+
         // Get the stored password or use default if not set
-        final String correctPassword = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
+       String password = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
+        if(password.isEmpty()){
+            createPassword();
+            password = sharedPreferences.getString(PREF_PASSWORD, DEFAULT_PASSWORD);
+        }
+        final String correctPassword = password;
 
         EditText editTextPassword = findViewById(R.id.editTextPassword);
         Button buttonUnlock = findViewById(R.id.buttonUnlock);
@@ -59,4 +68,30 @@ public class LockPageActivity extends AppCompatActivity {
             }
         });
     }
+        private void createPassword(){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.setTitle("Title");
+            alert.setMessage("Message");
+
+// Set an EditText view to get user input
+            final EditText input = new EditText(this);
+            alert.setView(input);
+
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String value = String.valueOf(input.getText());
+                    Toast.makeText(LockPageActivity.this,value,Toast.LENGTH_LONG);
+                }
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // Canceled.
+                }
+            });
+
+            alert.show();
+        }
+
 }
