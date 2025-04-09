@@ -147,9 +147,17 @@ public class ChatActivity extends AppCompatActivity {
             // Attempt to parse text as JSON
             JSONObject jsonResponse;
             try {
-                textResponse = textResponse.replace("```json\\n", "").replace("\\n", "");
+                textResponse = textResponse
+                        .replaceAll("```json\\s*", "")
+                        .replaceAll("```", "")
+                        .replaceAll("\\\\n", "")
+                        .replaceAll("\\n", "")
+                        .trim();
+
                 System.out.println(textResponse);
+
                 jsonResponse = new JSONObject(textResponse);
+
             } catch (JSONException e) {
                 responseTextView.setText(textResponse);
                 return;
