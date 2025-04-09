@@ -45,12 +45,6 @@ public class NotesMainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         loadNotes();
@@ -158,7 +152,6 @@ public class NotesMainActivity extends AppCompatActivity {
             intent.putExtra("noteId", noteId);
             startActivity(intent);
         });
-
 
         deleteButton.setOnClickListener(v -> showDeleteConfirmation(noteId));
 

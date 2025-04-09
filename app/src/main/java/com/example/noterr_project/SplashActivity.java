@@ -16,6 +16,6 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
-        }, 3000); // 3 seconds delay
+        }, 3000);
     }
 }
