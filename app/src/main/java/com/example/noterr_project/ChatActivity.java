@@ -81,10 +81,10 @@ public class ChatActivity extends AppCompatActivity {
 
             messagePart.put("text",
                     "Current datetime is " + currentDateTime + ". " +
-                            "You are an assistant that extracts structured reminder data. " +
+                            "You are an assistant that extracts structured reminder data. Try to leave/create description. Think and try to figure out reminder time from text reference and current datetime before saying its not present." +
                             "From the following user input, extract only the following fields in **strict JSON format** without quotations and markdown: " +
-                            "`title` (1-10 words), `description` (1-20 words), `scheduledTime` (DD/MM/YYYY HH:MM). " +
-                            "Do NOT include any extra explanation or text. Only output a pure JSON object. " +
+                            "`title` (1-10 words), `description` (0-20 words), `scheduledTime` (DD/MM/YYYY HH:MM). " +
+                            "Do NOT include any extra explanation or text. Only output a pure JSON object. No deviation from format allowed." +
                             "If any fields are missing or invalid, return a JSON object like: {\"error\": \"Missing title/description/scheduledTime\"}.\n\n" +
                             "User input: " + userPrompt);
 
