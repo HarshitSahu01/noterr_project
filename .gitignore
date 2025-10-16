@@ -14,3 +14,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# README file - personal documentation only
+README.md
